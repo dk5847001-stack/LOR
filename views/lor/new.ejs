@@ -1,0 +1,99 @@
+<% layout("layouts/boilerplate") %>
+
+<section class="section-pad">
+  <div class="container">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow mb-1">Create Document</p>
+        <h1>Generate Letter of Recommendation</h1>
+        <p class="text-muted mb-0">Enter internship and student details. PDF generation will be connected in the next phase.</p>
+      </div>
+      <a href="/admin/lor/all" class="btn btn-outline-primary"><i class="fa-solid fa-table-list me-2"></i>Manage LORs</a>
+    </div>
+
+    <form action="/admin/lor/generate" method="POST" class="panel needs-validation" novalidate>
+      <div class="form-section-title">Student Details</div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label" for="studentName">Student Name <span class="required">*</span></label>
+          <input class="form-control" id="studentName" name="studentName" placeholder="Riya Sharma" required>
+          <div class="invalid-feedback">Student name is required.</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="studentEmail">Student Email <span class="required">*</span></label>
+          <input class="form-control" id="studentEmail" name="studentEmail" type="email" placeholder="student@example.com" required>
+          <div class="invalid-feedback">Valid student email is required.</div>
+        </div>
+      </div>
+
+      <div class="form-section-title mt-4">Internship Details</div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label" for="internshipDomain">Internship Domain <span class="required">*</span></label>
+          <input class="form-control" id="internshipDomain" name="internshipDomain" placeholder="Full Stack Web Development" required>
+          <div class="invalid-feedback">Internship domain is required.</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="projectName">Project Name <span class="required">*</span></label>
+          <input class="form-control" id="projectName" name="projectName" placeholder="Internship Management Portal" required>
+          <div class="invalid-feedback">Project name is required.</div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="startDate">Start Date <span class="required">*</span></label>
+          <input class="form-control" id="startDate" name="startDate" type="date" required>
+          <div class="invalid-feedback">Start date is required.</div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="endDate">End Date <span class="required">*</span></label>
+          <input class="form-control" id="endDate" name="endDate" type="date" required>
+          <div class="invalid-feedback">End date is required.</div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="durationText">Duration Text <span class="required">*</span></label>
+          <input class="form-control" id="durationText" name="durationText" placeholder="8 weeks" required>
+          <div class="invalid-feedback">Duration text is required.</div>
+        </div>
+        <div class="col-md-8">
+          <label class="form-label" for="skills">Skills</label>
+          <input class="form-control" id="skills" name="skills" placeholder="JavaScript, Express.js, MongoDB, Bootstrap">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="performance">Performance <span class="required">*</span></label>
+          <select class="form-select" id="performance" name="performance" required>
+            <% performanceOptions.forEach((option) => { %>
+              <option value="<%= option %>"><%= option %></option>
+            <% }) %>
+          </select>
+          <div class="invalid-feedback">Performance is required.</div>
+        </div>
+      </div>
+
+      <div class="form-section-title mt-4">Recommendation</div>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label" for="issueDate">Issue Date</label>
+          <input class="form-control" id="issueDate" name="issueDate" type="date">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="authorizedPersonName">Authorized Person <span class="required">*</span></label>
+          <input class="form-control" id="authorizedPersonName" name="authorizedPersonName" value="A. Kumar" placeholder="A. Kumar" required>
+          <div class="invalid-feedback">Authorized person name is required.</div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="authorizedPersonDesignation">Designation <span class="required">*</span></label>
+          <input class="form-control" id="authorizedPersonDesignation" name="authorizedPersonDesignation" value="Program Director" placeholder="Program Director" required>
+          <div class="invalid-feedback">Designation is required.</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label" for="recommendationText">Custom Recommendation Paragraph</label>
+          <textarea class="form-control" id="recommendationText" name="recommendationText" rows="5" placeholder="Optional paragraph to personalize this recommendation."></textarea>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <a href="/admin/dashboard" class="btn btn-outline-secondary">Cancel</a>
+        <button class="btn btn-primary btn-lg"><i class="fa-solid fa-file-circle-plus me-2"></i>Generate LOR</button>
+      </div>
+    </form>
+  </div>
+</section>

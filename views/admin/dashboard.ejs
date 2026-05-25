@@ -1,0 +1,49 @@
+<% layout("layouts/boilerplate") %>
+
+<section class="section-pad">
+  <div class="container">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow mb-1">Admin Workspace</p>
+        <h1>Welcome, <%= admin?.name || "Admin" %></h1>
+        <p class="text-muted mb-0">Generate, manage, verify, and revoke InternovaTech LOR records.</p>
+      </div>
+      <div class="d-flex gap-2 flex-wrap">
+        <a href="/admin/lor/new" class="btn btn-primary"><i class="fa-solid fa-plus me-2"></i>Generate New LOR</a>
+        <a href="/admin/lor/all" class="btn btn-outline-primary"><i class="fa-solid fa-table-list me-2"></i>Manage LORs</a>
+        <a href="/logout" class="btn btn-outline-secondary"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-2">
+      <div class="col-md-6 col-xl-3">
+        <div class="metric stat-card">
+          <i class="fa-solid fa-file-lines metric-icon"></i>
+          <span>Total LORs</span>
+          <strong><%= stats.totalLors %></strong>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="metric stat-card">
+          <i class="fa-solid fa-circle-check metric-icon text-success"></i>
+          <span>Active LORs</span>
+          <strong><%= stats.activeLors %></strong>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="metric stat-card">
+          <i class="fa-solid fa-ban metric-icon text-warning"></i>
+          <span>Revoked LORs</span>
+          <strong><%= stats.revokedLors %></strong>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="metric stat-card">
+          <i class="fa-solid fa-calendar-days metric-icon"></i>
+          <span>Generated This Month</span>
+          <strong><%= stats.generatedThisMonth %></strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

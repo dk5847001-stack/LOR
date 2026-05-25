@@ -1,0 +1,132 @@
+<% layout("layouts/boilerplate") %>
+
+<section class="section-pad">
+  <div class="container">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow mb-1">LOR Record</p>
+        <h1><%= lor.studentName %></h1>
+        <p class="text-muted mb-0"><%= lor.lorId %></p>
+      </div>
+      <a href="/admin/lor/all" class="btn btn-outline-primary"><i class="fa-solid fa-arrow-left me-2"></i>Back to All</a>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div class="panel">
+          <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+            <div>
+              <p class="eyebrow mb-1">Student Details</p>
+              <h2 class="h4 mb-0"><%= lor.studentName %></h2>
+            </div>
+            <span class="badge rounded-pill text-bg-<%= lor.status === "active" ? "success" : "warning" %>"><%= lor.status %></span>
+          </div>
+
+          <div class="detail-grid">
+            <div>
+              <span>Email</span>
+              <strong><%= lor.studentEmail %></strong>
+            </div>
+            <div>
+              <span>Internship Domain</span>
+              <strong><%= lor.internshipDomain %></strong>
+            </div>
+            <div>
+              <span>Project Name</span>
+              <strong><%= lor.projectName %></strong>
+            </div>
+            <div>
+              <span>Duration</span>
+              <strong><%= lor.durationText %></strong>
+            </div>
+            <div>
+              <span>Start Date</span>
+              <strong><%= formatDate(lor.startDate) %></strong>
+            </div>
+            <div>
+              <span>End Date</span>
+              <strong><%= formatDate(lor.endDate) %></strong>
+            </div>
+            <div>
+              <span>Issue Date</span>
+              <strong><%= formatDate(lor.issueDate) %></strong>
+            </div>
+            <div>
+              <span>Performance</span>
+              <strong><%= lor.performance %></strong>
+            </div>
+          </div>
+
+          <% if (lor.skills && lor.skills.length) { %>
+            <div class="mt-4">
+              <p class="detail-label">Skills</p>
+              <div class="d-flex gap-2 flex-wrap">
+                <% lor.skills.forEach((skill) => { %>
+                  <span class="skill-pill"><%= skill %></span>
+                <% }) %>
+              </div>
+            </div>
+          <% } %>
+
+          <% if (lor.recommendationText) { %>
+            <div class="mt-4">
+              <p class="detail-label">Custom Recommendation</p>
+              <p class="mb-0 text-muted"><%= lor.recommendationText %></p>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="panel">
+          <p class="eyebrow mb-1">Official Details</p>
+          <h2 class="h5">InternovaTech</h2>
+          <div class="official-seal">
+            <img src="/images/seal.png" alt="InternovaTech seal">
+          </div>
+          <div class="detail-list">
+            <div>
+              <span>LOR ID</span>
+              <strong><%= lor.lorId %></strong>
+            </div>
+            <div>
+              <span>Authorized Person</span>
+              <strong><%= lor.authorizedPersonName %></strong>
+            </div>
+            <div>
+              <span>Designation</span>
+              <strong><%= lor.authorizedPersonDesignation %></strong>
+            </div>
+            <div>
+              <span>Verification URL</span>
+              <a href="<%= lor.verificationUrl %>" target="_blank" rel="noreferrer"><%= lor.verificationUrl %></a>
+            </div>
+            <div>
+              <span>PDF URL</span>
+              <% if (lor.pdfUrl) { %>
+                <a href="<%= lor.pdfUrl %>" target="_blank" rel="noreferrer">Open PDF</a>
+              <% } else { %>
+                <strong class="text-muted">Not generated yet</strong>
+              <% } %>
+            </div>
+          </div>
+          <div class="d-grid gap-2 mt-4">
+            <% if (lor.pdfUrl) { %>
+              <a href="<%= lor.pdfUrl %>" class="btn btn-success" target="_blank" rel="noreferrer"><i class="fa-solid fa-download me-2"></i>Download PDF</a>
+            <% } %>
+            <a href="/admin/lor/<%= lor._id %>/preview-pdf" class="btn btn-outline-success" target="_blank" rel="noreferrer"><i class="fa-solid fa-file-pdf me-2"></i>Preview PDF</a>
+            <a href="/verify-lor/<%= lor.lorId %>" class="btn btn-outline-primary" target="_blank" rel="noreferrer"><i class="fa-solid fa-shield-halved me-2"></i>Public Verification</a>
+            <% if (lor.status === "active") { %>
+              <form action="/admin/lor/<%= lor._id %>/revoke?_method=PATCH" method="POST" data-confirm="Revoke this LOR?">
+                <button class="btn btn-warning w-100"><i class="fa-solid fa-ban me-2"></i>Revoke LOR</button>
+              </form>
+            <% } %>
+            <form action="/admin/lor/<%= lor._id %>/delete?_method=DELETE" method="POST" data-confirm="Delete this LOR permanently?">
+              <button class="btn btn-danger w-100"><i class="fa-solid fa-trash me-2"></i>Delete LOR</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

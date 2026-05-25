@@ -1,0 +1,110 @@
+<% layout("layouts/boilerplate") %>
+
+<section class="section-pad">
+  <div class="container">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow mb-1">LOR Management</p>
+        <h1>All Letters of Recommendation</h1>
+      </div>
+      <a href="/admin/lor/new" class="btn btn-primary"><i class="fa-solid fa-plus me-2"></i>Generate New LOR</a>
+    </div>
+
+    <form action="/admin/lor/all" method="GET" class="panel search-panel mb-4">
+      <div class="input-group input-group-lg">
+        <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <input name="search" class="form-control" value="<%= search %>" placeholder="Search by student name, email, LOR ID, or domain">
+        <button class="btn btn-primary">Search</button>
+        <% if (search) { %>
+          <a href="/admin/lor/all" class="btn btn-outline-secondary">Clear</a>
+        <% } %>
+      </div>
+    </form>
+
+    <div class="table-responsive panel p-0 d-none d-lg-block">
+      <table class="table table-hover mb-0 align-middle">
+        <thead>
+          <tr>
+            <th>LOR ID</th>
+            <th>Student</th>
+            <th>Email</th>
+            <th>Domain</th>
+            <th>Issue Date</th>
+            <th>Status</th>
+            <th class="text-end">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (!lors.length) { %>
+            <tr><td colspan="7" class="text-center py-5 text-muted">No LOR records found.</td></tr>
+          <% } %>
+          <% lors.forEach((lor) => { %>
+            <tr>
+              <td class="fw-semibold"><%= lor.lorId %></td>
+              <td><%= lor.studentName %></td>
+              <td><%= lor.studentEmail %></td>
+              <td><%= lor.internshipDomain %></td>
+              <td><%= formatDate(lor.issueDate) %></td>
+              <td><span class="badge rounded-pill text-bg-<%= lor.status === "active" ? "success" : "warning" %>"><%= lor.status %></span></td>
+              <td>
+                <div class="table-actions">
+                  <a href="/admin/lor/<%= lor._id %>" class="btn btn-sm btn-outline-primary">View</a>
+                  <% if (lor.pdfUrl) { %>
+                    <a href="<%= lor.pdfUrl %>" class="btn btn-sm btn-outline-success" target="_blank" rel="noreferrer">PDF</a>
+                  <% } %>
+                  <a href="/verify-lor/<%= lor.lorId %>" class="btn btn-sm btn-outline-secondary" target="_blank" rel="noreferrer">Verify</a>
+                  <% if (lor.status === "active") { %>
+                    <form action="/admin/lor/<%= lor._id %>/revoke?_method=PATCH" method="POST" data-confirm="Revoke this LOR?">
+                      <button class="btn btn-sm btn-outline-warning">Revoke</button>
+                    </form>
+                  <% } %>
+                  <form action="/admin/lor/<%= lor._id %>/delete?_method=DELETE" method="POST" data-confirm="Delete this LOR permanently?">
+                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-lg-none">
+      <% if (!lors.length) { %>
+        <div class="panel text-center text-muted">No LOR records found.</div>
+      <% } %>
+      <div class="row g-3">
+        <% lors.forEach((lor) => { %>
+          <div class="col-12">
+            <div class="panel">
+              <div class="d-flex justify-content-between gap-3">
+                <div>
+                  <p class="eyebrow mb-1"><%= lor.lorId %></p>
+                  <h2 class="h5 mb-1"><%= lor.studentName %></h2>
+                  <p class="text-muted mb-0"><%= lor.studentEmail %></p>
+                </div>
+                <span class="badge h-fit text-bg-<%= lor.status === "active" ? "success" : "warning" %>"><%= lor.status %></span>
+              </div>
+              <div class="small text-muted mt-3"><%= lor.internshipDomain %> · <%= formatDate(lor.issueDate) %></div>
+              <div class="d-flex gap-2 flex-wrap mt-3">
+                <a href="/admin/lor/<%= lor._id %>" class="btn btn-sm btn-outline-primary">View</a>
+                <a href="/verify-lor/<%= lor.lorId %>" class="btn btn-sm btn-outline-secondary">Verify</a>
+                <% if (lor.pdfUrl) { %>
+                  <a href="<%= lor.pdfUrl %>" class="btn btn-sm btn-outline-success">PDF</a>
+                <% } %>
+                <% if (lor.status === "active") { %>
+                  <form action="/admin/lor/<%= lor._id %>/revoke?_method=PATCH" method="POST" data-confirm="Revoke this LOR?">
+                    <button class="btn btn-sm btn-outline-warning">Revoke</button>
+                  </form>
+                <% } %>
+                <form action="/admin/lor/<%= lor._id %>/delete?_method=DELETE" method="POST" data-confirm="Delete this LOR permanently?">
+                  <button class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>

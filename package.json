@@ -1,0 +1,42 @@
+{
+  "name": "internovatech-lor-generator",
+  "version": "1.0.0",
+  "description": "Dedicated Letter of Recommendation generator for InternovaTech.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "seed:admin": "node scripts/createAdmin.js"
+  },
+  "keywords": [
+    "internovatech",
+    "lor",
+    "express",
+    "ejs",
+    "mongodb"
+  ],
+  "author": "InternovaTech",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.8.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
+    "dotenv": "^17.3.1",
+    "ejs": "^3.1.10",
+    "ejs-mate": "^4.0.0",
+    "express": "^5.2.1",
+    "express-session": "^1.18.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^9.2.4",
+    "puppeteer": "^24.32.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

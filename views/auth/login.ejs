@@ -1,0 +1,30 @@
+<% layout("layouts/boilerplate") %>
+
+<section class="auth-screen">
+  <div class="auth-card">
+    <div class="text-center mb-4">
+      <img src="/images/logo.png" alt="InternovaTech" class="login-logo">
+      <p class="eyebrow mt-3 mb-1">Admin Access</p>
+      <h1 class="h3 mb-0">Sign in to LOR Portal</h1>
+    </div>
+    <form action="/login" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+          <input type="email" id="email" name="email" class="form-control" placeholder="admin@internovatech.in" required>
+          <div class="invalid-feedback">Please enter a valid admin email.</div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required>
+          <div class="invalid-feedback">Password is required.</div>
+        </div>
+      </div>
+      <button class="btn btn-primary w-100 btn-lg">Login</button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,59 @@
+<% layout("layouts/boilerplate") %>
+
+<section class="verify-hero">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <p class="eyebrow text-info">Official Verification Portal</p>
+        <h1>InternovaTech Letter of Recommendation Verification</h1>
+        <p class="lead text-white-75">
+          Verify official InternovaTech recommendation letters using the unique LOR ID printed on the document.
+        </p>
+        <a href="#verify-form" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-shield-halved me-2"></i>Verify LOR
+        </a>
+      </div>
+      <div class="col-lg-5">
+        <form id="verify-form" action="/verify-lor" method="GET" class="verify-card">
+          <div class="text-center mb-4">
+            <img src="/images/logo.png" alt="InternovaTech" class="login-logo mb-3">
+            <h2 class="h4 mb-1">Check Authenticity</h2>
+            <p class="text-muted mb-0">Enter the LOR ID exactly as shown.</p>
+          </div>
+          <label for="lorId" class="form-label">LOR ID</label>
+          <div class="input-group input-group-lg">
+            <span class="input-group-text"><i class="fa-solid fa-fingerprint"></i></span>
+            <input id="lorId" name="lorId" class="form-control" placeholder="INT-LOR-2026-ABC123" required>
+          </div>
+          <button class="btn btn-primary btn-lg w-100 mt-3">Verify Now</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-5">
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="metric">
+        <i class="fa-solid fa-file-signature metric-icon"></i>
+        <span>Document Identity</span>
+        <strong>Unique LOR ID</strong>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="metric">
+        <i class="fa-solid fa-building-shield metric-icon"></i>
+        <span>Issued By</span>
+        <strong>InternovaTech</strong>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="metric">
+        <i class="fa-solid fa-circle-check metric-icon"></i>
+        <span>Status Check</span>
+        <strong>Active or Revoked</strong>
+      </div>
+    </div>
+  </div>
+</section>

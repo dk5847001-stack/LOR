@@ -1,0 +1,80 @@
+<% layout("layouts/boilerplate") %>
+
+<section class="verify-page">
+  <div class="container">
+    <div class="verify-shell">
+      <div class="verify-brand-panel">
+        <img src="/images/logo.png" alt="InternovaTech" class="verify-brand-logo">
+        <p class="eyebrow text-info mb-2">InternovaTech Verification</p>
+        <h1>Official LOR Authenticity Check</h1>
+        <p>
+          Every valid InternovaTech Letter of Recommendation carries a unique ID and QR-backed public verification record.
+        </p>
+        <form action="/verify-lor" method="GET" class="verify-mini-form">
+          <label for="lorId" class="form-label">Check another LOR ID</label>
+          <div class="input-group">
+            <input id="lorId" name="lorId" class="form-control" placeholder="INT-LOR-2026-ABC123">
+            <button class="btn btn-primary">Verify</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="verify-result-panel">
+        <% if (lor && lor.status === "active") { %>
+          <div class="verify-result-card success">
+            <div class="result-mark">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <p class="eyebrow mb-1">Verified Successfully</p>
+            <h2><%= lor.studentName %></h2>
+            <p class="text-muted">
+              This Letter of Recommendation is active and was issued by <strong><%= lor.companyName %></strong>.
+            </p>
+            <div class="verified-ribbon">Official Active Record</div>
+            <div class="verify-details premium">
+              <div><span>LOR ID</span><strong><%= lor.lorId %></strong></div>
+              <div><span>Student Name</span><strong><%= lor.studentName %></strong></div>
+              <div><span>Internship Domain</span><strong><%= lor.internshipDomain %></strong></div>
+              <div><span>Duration</span><strong><%= lor.durationText %></strong></div>
+              <div><span>Issue Date</span><strong><%= formatDate(lor.issueDate) %></strong></div>
+              <div><span>Company</span><strong><%= lor.companyName %></strong></div>
+            </div>
+            <% if (lor.pdfUrl) { %>
+              <a href="<%= lor.pdfUrl %>" target="_blank" rel="noreferrer" class="btn btn-success mt-4">
+                <i class="fa-solid fa-file-pdf me-2"></i>View Official PDF
+              </a>
+            <% } %>
+          </div>
+        <% } else if (lor && lor.status === "revoked") { %>
+          <div class="verify-result-card warning">
+            <div class="result-mark">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <p class="eyebrow mb-1">Revoked Document</p>
+            <h2>This LOR has been revoked</h2>
+            <p class="text-muted mb-0">
+              A record exists for <strong><%= lor.studentName %></strong>, but it is no longer active in the InternovaTech verification system.
+            </p>
+            <div class="verify-details premium mt-4">
+              <div><span>LOR ID</span><strong><%= lor.lorId %></strong></div>
+              <div><span>Status</span><strong>Revoked</strong></div>
+              <div><span>Student Name</span><strong><%= lor.studentName %></strong></div>
+              <div><span>Company</span><strong><%= lor.companyName %></strong></div>
+            </div>
+          </div>
+        <% } else { %>
+          <div class="verify-result-card danger">
+            <div class="result-mark">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <p class="eyebrow mb-1">Invalid LOR ID</p>
+            <h2>No official record found</h2>
+            <p class="text-muted mb-0">
+              We could not find an active InternovaTech LOR record for <strong><%= searchedLorId %></strong>.
+            </p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
