@@ -59,7 +59,7 @@ For Render, set `BASE_URL` to your Render web service URL, for example `https://
 4. Set Runtime to Node.
 5. Use build command:
    ```bash
-   npm install
+   npm run render-build
    ```
 6. Use start command:
    ```bash
@@ -94,4 +94,5 @@ For Render, set `BASE_URL` to your Render web service URL, for example `https://
 - PDF files are uploaded to Cloudinary as `raw` assets under `internovatech/lor`.
 - Static images used in PDFs are read from `public/images` and embedded as base64 data URLs, so no local machine paths are required.
 - Puppeteer launches with `--no-sandbox`, `--disable-setuid-sandbox`, and `--disable-dev-shm-usage` for Render/Linux compatibility.
+- Puppeteer stores Chrome in the project `.cache/puppeteer` directory via `.puppeteerrc.cjs`, avoiding broken shared Render cache restores.
 - `PUPPETEER_EXECUTABLE_PATH` is optional. Leave it blank unless your Render environment provides a custom Chrome path.
